@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>A Close Look at Global Happiness</title>
+  <!-- Import Vega & Vega-Lite (does not have to be from CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2/build/vega.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.0.0/build/vega-lite.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0/build/vega-embed.min.js"></script>
+
+  <!-- Import pure.css -->
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"
+    integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Google font -->
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700;900&display=swap" rel="stylesheet">
+
+  <!-- CSS file -->
+  <link rel="stylesheet" type="text/css" href="styles.css" media="all">
+</head>
+
+<body>
+  <div class="page">
+    <!-- pure grid group -->
+    <div class="pure-g">
+      <div class="pure-u-24-24">
+        <div class="description description-center">
+
+          <h1> A Close Look at Global Happiness</h1>
+          <p> Some used to think the whole purpose of life was pursuing happines, but everyone get a different path to
+            happines and we can never getting to
+            know the actual feelings of a person. When a time one think a preson is happy, but the one will never know
+            whether the person fake happiness.
+            Let's using a wise way to know about gobal happiness.</p>
+        </div>
+      </div>
+    </div>
+    <!-- end pure grid group -->
+
+    <!-- pure grid group -->
+    <div class="pure-g">
+      <div class="pure-u-1-1">
+        <div class="description description-center">
+          <h2>Global Happiness Factors</h2>
+          <p>There are 5 factors in regard to gobal happiness, including GDP, social support, freedom to make lfe chiose
+            and generosity.
+            we can analysis about how these factors are related to each others by playing around with the heatmap.
+            Firstly, there is a clear relationship
+            between social support, GDP and happiness rate, which means people would be happy to live a developed
+            counties where they can make use of their strengths
+            to server others or be visible and valuable. Then, we can see that freedom to make
+            life decision is the most important factors that influence average happiness. Additionally, the heatmap also
+            tell that happy people are more generous which
+            means they have a higher inclination to help others. as there is a strong link between feeling happy and
+            doing good for the community or the world.
+            Lastly, the preceptiones of corruption is amlost irrelavant to happines
+            rate of a countryes so I will leave it alone for the next stage of the analysis</p>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="pure-g center">
+      <div class="pure-g">
+        <div class="pure-u-1-1">
+          <div id="heatMap"></div>
+        </div>
+      </div>
+    </div>
+    <!-- end pure grid group -->
+
+    <!-- pure grid group -->
+    <div class="pure-g">
+      <div class="pure-u-1-1">
+        <div class="description description-center">
+          <h2>Global Happiness Assessment</h2>
+          <p>Let's view the avgerage rating score of the 4 factors that we discovered in the previous stage. Mainly, the
+            world is partioned into 5 regions which are
+            Asia, Oceana, Africa, Europe and America. We can view the most balance avgerage socre appearing at the
+            region of America. Then Europe comes the next,
+            following up with Asia and Oceana. One intreseting fact is that the generosity score is the most strict
+            along all countries gobally</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="pure-g center">
+      <div class="pure-g">
+        <div class="pure-u-1-1">
+          <div id="raDar"></div>
+        </div>
+      </div>
+    </div>
+    <!-- end pure grid group -->
+
+    <!-- pure grid group -->
+    <div class="pure-g">
+      <div class="pure-u-1-1">
+        <div class="description description-center">
+          <h2>Global Healthy Life Expectancy</h2>
+          <p>How long people is the healthy life expectancy over the world. The lollipo chart illustrates the average
+            ages of these four regions we analyse previously.
+            Without any surperising that europe is the region where people enjoy the longest life all over the world.
+            Next is the America and Oceana where the avgerage
+            life expectancy is 66. Then, Aisan has a slightly lower value of an age of 65. Simial to the information we
+            obtained from the previous radar chart, African
+            people has the lowest avgerage life expectancy of 59. Therefore, we can say thay people tend to live longer
+            in a developed regions than developing regions.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="pure-g center">
+      <div class="pure-g">
+        <div class="pure-u-1-1">
+          <div id="lolliPop"></div>
+        </div>
+      </div>
+    </div>
+    <!-- end pure grid group -->
+
+    <!-- pure grid group -->
+    <div class="pure-g">
+      <div class="pure-u-1-1">
+        <div class="description description-center">
+          <h2>Global Happiness Evolution</h2>
+          <p>We can view the change of world happiness at the bubble chart, where we can get the insight to know the
+            trend of change in a country by click on a bubble,
+            and can tell that the majority of countries in the world are getting a lagger happiness rate over the period
+            of years, which pattern can also be viewed at
+            tha trand of generosity rate, when happy people are tend to be more generous with others.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="pure-g center">
+      <div class="pure-g">
+        <div class="pure-u-1-1">
+          <div id="buBble"></div>
+        </div>
+      </div>
+    </div>
+    <!-- end pure grid group -->
+
+    <!-- pure grid group -->
+    <div class="pure-g">
+      <div class="pure-u-1-1">
+        <div class="description description-center">
+          <h2>Global Happiness Summary</h2>
+          <p> Let's summarise all the visualisation by a world map that with all value we analyse above, and you can
+            view all the data of a country by move your mouse
+            onto the map of it.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="pure-g center">
+      <div class="pure-g">
+        <div class="pure-u-1-1">
+          <div id="worldMap"></div>
+        </div>
+      </div>
+    </div>
+    <!-- end pure grid group -->
+
+    <div class="pure-g">
+      <div class="pure-g">
+        <div class="pure-u-1-1">
+          <p>This visualisation is created by <a href="https://github.com/KadekSatriadi" target="_blank">Pu Muxin
+            </a>. The data source is <a href="#" target=" _blank"> in the GitHub</href>.</p>
+        </div>
+      </div>
+    </div><!-- end page -->
+
+    <script type="text/javascript">
+      var heatmap = "heatmap.vg.json";
+      var bubble = "bubble.vl.json";
+      var lollipop = "lollipop.vl.json";
+      var radar = "radar.vg.json";
+      var worldmap = "worldmap.vl.json";
+
+      vegaEmbed('#heatMap', heatmap, { "actions": false }).then(function (result) {
+        // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+      }).catch(console.error);
+
+      vegaEmbed('#raDar', radar, { "actions": false }).then(function (result) {
+        // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+      }).catch(console.error);
+
+      vegaEmbed('#lolliPop', lollipop, { "actions": false }).then(function (result) {
+        // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+      }).catch(console.error);
+
+      vegaEmbed('#buBble', bubble, { "actions": false }).then(function (result) {
+        // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+      }).catch(console.error);
+
+      vegaEmbed('#worldMap', worldmap, { "actions": false }).then(function (result) {
+        // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+      }).catch(console.error);
+    </script>
+</body>
+
+</html>

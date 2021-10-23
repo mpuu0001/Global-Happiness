@@ -1,0 +1,395 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "width": 500,
+  "height": 500,
+  "title": {
+    "text": "Happiness Assessment of 1949 Countries",
+    "subtitle": "\n2021",
+    "anchor": "start",
+    "offset": -3
+  },
+  "data": [
+    {
+      "name": "table",
+      "url": "https://raw.githubusercontent.com/mpuu0001/FIT3179/master/world_happiness_radar.json"
+    },
+    {
+      "name": "keys",
+      "source": "table",
+      "transform": [{"type": "aggregate", "groupby": ["key"]}]
+    }
+  ],
+  "autosize": {"type": "none", "contains": "padding"},
+  "signals": [{"name": "radius", "update": "width / 2"}],
+  "padding": 23,
+  "scales": [
+    {
+      "name": "angular",
+      "type": "point",
+      "range": {"signal": "[PI, -PI]"},
+      "padding": 0.5,
+      "domain": {"data": "table", "field": "key"}
+    },
+    {
+      "name": "radial",
+      "type": "linear",
+      "range": {"signal": "[0, radius]"},
+      "zero": true,
+      "nice": false,
+      "domain": {"data": "table", "field": "value"},
+      "domainMin": -0.2,
+      "domainMax": 1
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": {"data": "table", "field": "category"},
+      "range": {"scheme": "Viridis"}
+    }
+  ],
+  "encode": {"enter": {"x": {"signal": "radius"}, "y": {"signal": "radius"}}},
+  "marks": [
+    {
+      "type": "group",
+      "name": "categories",
+      "zindex": 1,
+      "from": {
+        "facet": {"data": "table", "name": "facet", "groupby": ["category"]}
+      },
+      "marks": [
+        {
+          "type": "line",
+          "name": "category-line",
+          "from": {"data": "facet"},
+          "encode": {
+            "enter": {
+              "interpolate": {"value": "linear-closed"},
+              "x": {
+                "signal": "scale('radial', datum.value) * cos(scale('angular', datum.key))"
+              },
+              "y": {
+                "signal": "scale('radial', datum.value) * sin(scale('angular', datum.key))"
+              },
+              "stroke": {"scale": "color", "field": "category"},
+              "strokeWidth": {"value": 1},
+              "fill": {"scale": "color", "field": "category"},
+              "fillOpacity": {"value": 0.1}
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "rule",
+      "name": "radial-grid",
+      "from": {"data": "keys"},
+      "zindex": 0,
+      "encode": {
+        "enter": {
+          "x": {"value": 0},
+          "y": {"value": 0},
+          "x2": {"signal": "radius * cos(scale('angular', datum.key))"},
+          "y2": {"signal": "radius * sin(scale('angular', datum.key))"},
+          "stroke": {"value": "lightgray"},
+          "strokeWidth": {"value": 1}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "name": "key-label",
+      "from": {"data": "keys"},
+      "zindex": 1,
+      "encode": {
+        "enter": {
+          "x": {"signal": "(radius) * cos(scale('angular', datum.key))"},
+          "y": {"signal": "(radius) * sin(scale('angular', datum.key))"},
+          "text": {"field": "key"},
+          "align": [
+            {
+              "test": "abs(scale('angular', datum.key)) > PI / 2",
+              "value": "right"
+            },
+            {"value": "left"}
+          ],
+          "baseline": [
+            {"test": "scale('angular', datum.key) > 0", "value": "middle"},
+            {"test": "scale('angular', datum.key) == 0", "value": "middle"},
+            {"value": "bottom"}
+          ],
+          "fill": {"value": "black"},
+          "fontWeight": {"value": "bold"}
+        }
+      }
+    },
+    {
+      "type": "line",
+      "name": "outer-line",
+      "from": {"data": "radial-grid"},
+      "encode": {
+        "enter": {
+          "interpolate": {"value": "linear-closed"},
+          "x": {"field": "x2"},
+          "y": {"field": "y2"},
+          "stroke": {"value": "lightgray"},
+          "strokeWidth": {"value": 1}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "encode": {
+        "enter": {
+          "x": {"value": 33},
+          "y": {"value": 1},
+          "text": {"value": "0.0605"},
+          "fill": {"value": "#2a2b2b"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "encode": {
+        "enter": {
+          "x": {"value": 10},
+          "y": {"value": 26},
+          "text": {"value": "-0.0099"},
+          "fill": {"value": "#2a2b2b"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "encode": {
+        "enter": {
+          "x": {"value": -62},
+          "y": {"value": 18},
+          "text": {"value": "-0.00165"},
+          "fill": {"value": "#2a2b2b"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "encode": {
+        "enter": {
+          "x": {"value": -85},
+          "y": {"value": 18},
+          "text": {"value": "Min:"},
+          "fill": {"value": "#ff9102"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "encode": {
+        "enter": {
+          "x": {"value": -55},
+          "y": {"value": -10},
+          "text": {"value": "-0.00371"},
+          "fill": {"value": "#2a2b2b"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "encode": {
+        "enter": {
+          "x": {"value": -5},
+          "y": {"value": -20},
+          "text": {"value": "-0.0053"},
+          "fill": {"value": "#2a2b2b"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "encode": {
+        "enter": {
+          "x": {"value": -115},
+          "y": {"value": -82},
+          "text": {"value": "0.6696"},
+          "fill": {"value": "#2a2b2b"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "encode": {
+        "enter": {
+          "x": {"value": -136},
+          "y": {"value": -96},
+          "text": {"value": "0.8311"},
+          "fill": {"value": "#2a2b2b"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "encode": {
+        "enter": {
+          "x": {"value": -170},
+          "y": {"value": -102},
+          "text": {"value": "0.9024"},
+          "fill": {"value": "#2a2b2b"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "encode": {
+        "enter": {
+          "x": {"value": -196},
+          "y": {"value": -102},
+          "text": {"value": "Max:"},
+          "fill": {"value": "#ff9102"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "encode": {
+        "enter": {
+          "x": {"value": 22},
+          "y": {"value": 145},
+          "text": {"value": "0.6704"},
+          "fill": {"value": "#2a2b2b"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "encode": {
+        "enter": {
+          "x": {"value": 27},
+          "y": {"value": 163},
+          "text": {"value": "0.8319"},
+          "fill": {"value": "#2a2b2b"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "encode": {
+        "enter": {
+          "x": {"value": 27},
+          "y": {"value": 175},
+          "text": {"value": "0.8827"},
+          "fill": {"value": "#2a2b2b"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "encode": {
+        "enter": {
+          "x": {"value": 25},
+          "y": {"value": -143},
+          "text": {"value": "0.7711"},
+          "fill": {"value": "#2a2b2b"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "encode": {
+        "enter": {
+          "x": {"value": 33},
+          "y": {"value": -173},
+          "text": {"value": "0.8358"},
+          "fill": {"value": "#2a2b2b"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "encode": {
+        "enter": {
+          "x": {"value": 33},
+          "y": {"value": -160},
+          "text": {"value": "0.8471"},
+          "fill": {"value": "#2a2b2b"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "encode": {
+        "enter": {
+          "x": {"value": 172},
+          "y": {"value": 0},
+          "text": {"value": "0.8235"},
+          "fill": {"value": "#2a2b2b"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "encode": {
+        "enter": {
+          "x": {"value": 162},
+          "y": {"value": 9},
+          "text": {"value": "0.7941"},
+          "fill": {"value": "#2a2b2b"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "encode": {
+        "enter": {
+          "x": {"value": 125},
+          "y": {"value": -1},
+          "text": {"value": "0.7302"},
+          "fill": {"value": "#2a2b2b"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "encode": {
+        "enter": {
+          "x": {"value": -162},
+          "y": {"value": 100},
+          "text": {"value": "0.7648"},
+          "fill": {"value": "#2a2b2b"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "encode": {
+        "enter": {
+          "x": {"value": -124},
+          "y": {"value": 90},
+          "text": {"value": "0.7291"},
+          "fill": {"value": "#2a2b2b"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "encode": {
+        "enter": {
+          "x": {"value": -122},
+          "y": {"value": 80},
+          "text": {"value": "0.7210"},
+          "fill": {"value": "#2a2b2b"}
+        }
+      }
+    }
+  ],
+  "legends": [
+    {
+      "fill": "color",
+      "orient": "none",
+      "title": "Happiness factors",
+      "encode": {
+        "legend": {
+          "update": {"x": {"value": -216},"y": {"value": 169}}
+        }
+      }
+    }
+  ],
+  "config": {}
+}

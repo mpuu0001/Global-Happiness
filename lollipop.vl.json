@@ -1,0 +1,110 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 500,
+  "height": 300,
+  "title": {
+    "text": "Healthy Life Expectancy of 5 Regions", 
+    "subtitle": "Africa, America, Asia, Europe & Oceana",
+    "anchor": "start",
+    "offset":{"expr": "10"}
+    },
+  "data": {
+    "url": "https://raw.githubusercontent.com/mpuu0001/FIT3179/master/world_happiness_report_regions_lollipops.csv"
+  },
+  "layer": [
+    {
+      "mark": {"type": "bar", "size": 16, "filled": true, "color": "#606066"},
+      "encoding": {
+        "x": {
+          "field": "Regional Indicator",
+          "title": "Regions",
+          "type": "nominal",
+          "axis": {"labelAngle": 0}
+        },
+        "y": {
+          "aggregate": "mean",
+          "field": "Life Expectancy",
+          "title": "Average Life Expectancy",
+          "scale": {"domain": [55, 72]}
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "tick",
+        "size": 500,
+        "height": 200,
+        "filled": true,
+        "color": "#2a2b2b"
+      },
+      "encoding": {"y": {"aggregate": "mean", "field": "Life Expectancy"}}
+    },
+    {
+      "mark": {
+        "type": "point",
+        "size": 800,
+        "filled": true,
+        "color": "#dfd98c",
+        "tooltip": "African Average Age: 59",
+        "y": 220,
+        "x": 50
+      }
+    },
+    {
+      "mark": {
+        "type": "point",
+        "size": 2000,
+        "filled": true,
+        "color": "#29b7f0",
+        "tooltip": "American Average Age: 67",
+        "y": 90,
+        "x": 150
+      }
+    },
+    {
+      "mark": {
+        "type": "point",
+        "size": 1500,
+        "filled": true,
+        "color": "#97d8cd",
+        "tooltip": "Asian Average Age: 66",
+        "y": 100,
+        "x": 250
+      }
+    },
+    {
+      "mark": {
+        "type": "point",
+        "size": 3000,
+        "filled": true,
+        "color": "#6389da",
+        "tooltip": "European Average Age: 71",
+        "y": 30,
+        "x": 350
+      }
+    },
+    {
+      "mark": {
+        "type": "point",
+        "size": 1500,
+        "filled": true,
+        "color": "#97d8cd",
+        "tooltip": "Oceanian Average Age: 66",
+        "y": 100,
+        "x": 450
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "fontWeight": "lighter",
+        "fontSize": 9,
+        "x": 55,
+        "y": 110,
+        "opacity": 0.01
+      },
+      "encoding": {"text": {"value": "Global Average Age: 65"}}
+    }
+  ],
+  "config": {}
+}

@@ -1,0 +1,149 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Happiness Evolution of 1949 Countries",
+    "subtitle": "2006 - 2020",
+    "anchor": "start",
+    "offset": {"expr": "10"}
+  },
+  "width": 500,
+  "height": 300,
+  "data": {
+    "url": "https://raw.githubusercontent.com/mpuu0001/FIT3179/master/world_happiness_report_regions_trend.json"
+  },
+  "layer": [
+    {
+      "transform": [{"filter": {"param": "year"}}],
+      "mark": {
+        "type": "text",
+        "fontSize": 100,
+        "x": 250,
+        "y": 150,
+        "color": "#a3a6a8"
+      },
+      "encoding": {"text": {"field": "year"}}
+    },
+    {
+      "encoding": {
+        "x": {
+          "field": "fertility",
+          "type": "quantitative",
+          "scale": {"domain": [-0.4, 0.75]},
+          "axis": {"tickCount": 5, "title": "Generosity", "labelAngle": 0}
+        },
+        "y": {
+          "field": "score",
+          "type": "quantitative",
+          "scale": {"domain": [2, 8]},
+          "axis": {"tickCount": 5, "title": "Happiness Rate"}
+        }
+      },
+      "layer": [
+        {
+          "mark": {"type": "line", "color": "lightgray", "strokeCap": "round"},
+          "encoding": {
+            "detail": {"field": "country"},
+            "order": {"field": "year"},
+            "opacity": {
+              "condition": {
+                "test": {
+                  "or": [
+                    {"param": "hovered", "empty": false},
+                    {"param": "clicked", "empty": false}
+                  ]
+                },
+                "value": 0.8
+              },
+              "value": 0
+            }
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "year",
+              "value": [{"year": 2006}],
+              "select": {"type": "point", "fields": ["year"]},
+              "bind": {
+                "name": "--☞ Year",
+                "input": "range",
+                "min": 2006,
+                "max": 2020,
+                "step": 1
+              }
+            },
+            {
+              "name": "hovered",
+              "select": {
+                "type": "point",
+                "fields": ["country"],
+                "toggle": false,
+                "on": "mouseover"
+              }
+            },
+            {
+              "name": "clicked",
+              "select": {"type": "point", "fields": ["country"]}
+            }
+          ],
+          "transform": [{"filter": {"param": "year"}}],
+          "mark": {"type": "point", "filled": true, "opacity": 0.7},
+          "encoding": {
+            "color": {
+              "field": "clustor",
+              "title": "Region",
+              "scale": {"scheme": "viridis"}
+            },
+            "size": {
+              "title": "Social Support",
+              "field": "social_support",
+              "scale": {"domain": [0, 1]},
+              "type": "quantitative"
+            }
+          }
+        },
+        {
+          "transform": [
+            {
+              "filter": {
+                "and": [
+                  {"param": "year"},
+                  {
+                    "or": [
+                      {"param": "clicked", "empty": false},
+                      {"param": "hovered", "empty": false}
+                    ]
+                  }
+                ]
+              }
+            }
+          ],
+          "mark": {"type": "text", "yOffset": -12, "fontSize": 12},
+          "encoding": {
+            "text": {"field": "country"},
+            "color": {"field": "name", "title": "Region"}
+          }
+        },
+        {
+          "transform": [
+            {"filter": {"param": "hovered", "empty": false}},
+            {"filter": {"not": {"param": "year"}}}
+          ],
+          "layer": [
+            {
+              "mark": {
+                "type": "text",
+                "yOffset": -12,
+                "fontSize": 8,
+                "color": "grey"
+              },
+              "encoding": {"text": {"field": "year"}}
+            },
+            {"mark": {"type": "point", "color": "gray"}}
+          ]
+        }
+      ]
+    }
+  ],
+  "config": {}
+}
